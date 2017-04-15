@@ -105,7 +105,7 @@ Create and run your migrations.
 
 ### Model Design
 
-Once you have migrated your database, define you models. Remember to inherit them from `ActiveRecord::Base`. Use the appropriate macros to finish building your your associations.
+Once you have migrated your database, define you models. Remember to inherit them from `ActiveRecord::Base`. Use the appropriate macros to finish building your associations.
 
 ### Model Methods
 
