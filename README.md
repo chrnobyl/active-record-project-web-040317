@@ -1,12 +1,12 @@
 # Active Record Domain Modeling Project
 
-In this assignment, you'll build out your own project, using Active Record to enact database relationships, from scratch. 
+In this assignment, you'll build out your own project, using Active Record to enact database relationships, from scratch.
 
 ## Objectives
 
 1. Try out setting up your own environment from scratch--using past labs as a guide.
 2. Build out a complex set of associations, including the belongs to/has many, and many-to-many relationship.
-3. Use the code you wrote! Build a simple command line interface class so that a user can interact with your database. 
+3. Use the code you wrote! Build a simple command line interface class so that a user can interact with your database.
 
 ## Guidelines
 
@@ -25,9 +25,9 @@ In this app, you'll be working with a library domain model. You will have the fo
 * User. A user has a:
   * name
 
-The relationship between books and users in a little complex. A user can have many books and a book can belong to many users. At what point in time should a book be added to a user's collection of books? When a user checks that book out of the library. You will need a join table to implement this many-to-many relationship. 
+The relationship between books and users in a little complex. A user can have many books and a book can belong to many users. At what point in time should a book be added to a user's collection of books? When a user checks that book out of the library. You will need a join table to implement this many-to-many relationship.
 
-You also need to keep track of the books a user has previously checked out, vs. the books a user has currently checked out. So, each "checked out book" should know the its due date, should know whether or not it was returned and should therefore know if that book is overdue for that user. 
+You also need to keep track of the books a user has previously checked out, vs. the books a user has currently checked out. So, each "checked out book" should know the its due date, should know whether or not it was returned and should therefore know if that book is overdue for that user.
 
 ## Instructions
 
@@ -56,7 +56,7 @@ You also need to keep track of the books a user has previously checked out, vs. 
 │       ├── connection_adapter.rb
 │       └── db_registry.rb
 ```
-Use [this lab](https://github.com/learn-co-students/activerecord-costume-store-todo-web-0716) to guide you through your environment set up. 
+Use [this lab](https://github.com/learn-co-students/activerecord-costume-store-todo-web-0716) to guide you through your environment set up.
 
 Make sure you have a Gemfile that includes the following gems:
 
@@ -95,21 +95,21 @@ task :console => :environment do
 end
 ```
 
-Look to the costume store lab for your to set up your `config/environment.rb` file and the files in your `lib` directory that handle establishing the connection to the database. 
+Look to the costume store lab to set up your `config/environment.rb` file and the files in your `lib` directory that handle establishing the connection to the database.
 
 ### Database Design
 
-Once your environment is set up, go ahead and design your database. What do you tables need to look like? What foriegn keys need to be included in which tables? Do you need a join table? What columns should it have?
+Once your environment is set up, go ahead and design your database. What do you tables need to look like? What foreign keys need to be included in which tables? Do you need a join table? What columns should it have?
 
-Create and run your migrations. 
+Create and run your migrations.
 
 ### Model Design
 
-Once you have migrated your database, define you models. Remember to inherit them from `ActiveRecord::Base`. Use the appropriate macros to finish building your your associations. 
+Once you have migrated your database, define you models. Remember to inherit them from `ActiveRecord::Base`. Use the appropriate macros to finish building your your associations.
 
 ### Model Methods
 
-Write a `User` instance method that allows a user to "check out" a book. 
+Write a `User` instance method that allows a user to "check out" a book.
 
 ```ruby
 the_doctor = User.create(name: "The Doctor")
@@ -124,13 +124,13 @@ book.users
 # => [#<User:8x007f867390fe38 @name="The Doctor">]
 ```
 
-When a user check's out a book, it should create a new UserBook record (or Checkout record or whatever you want to call you join table/model). That new UserBook record should have a attribute (and therefore table column) of `returned?` which should default to `false`
+When a user checks out a book, it should create a new UserBook record (or Checkout record or whatever you want to call you join table/model). That new UserBook record should have a attribute (and therefore table column) of `returned?` which should default to `false`.
 
 So, after running the code above, I should be able to run the following code and see the following return values:
 
 ```ruby
 UserBook.where(user: the_doctor, returned: false)
-# => [#<User:0x007f867390fe38 
+# => [#<User:0x007f867390fe38
         @user=#<User:0x007290867390fe38 @name="The Doctor">,
         @book=#<Book:7x007f8673999 @title="Tardis Manual">,
         @returned=false>
@@ -149,7 +149,7 @@ UserBook.where(user: the_doctor, returned: false)
 # => []
 
 UserBook.where(user: the_doctor, returned: true)
-# => [#<User:0x007f867390fe38 
+# => [#<User:0x007f867390fe38
         @user=#<User:0x007290867390fe38 @name="The Doctor">,
         @book=#<Book:7x007f8673999 @title="Tardis Manual">,
         @returned=false>
@@ -158,7 +158,7 @@ UserBook.where(user: the_doctor, returned: true)
 
 ### Play around with your code
 
-Run the console task, `rake console`, and play around with the code you wrote to make sure your associations are working properly. Make and save an instance of category, book, author and use. Add the book to your category's collection of books, add the book to the author's collection of books. Have the user "check out" the book. Have the user "return" the book. 
+Run the console task, `rake console`, and play around with the code you wrote to make sure your associations are working properly. Make and save an instance of category, book, author and use. Add the book to your category's collection of books, add the book to the author's collection of books. Have the user "check out" the book. Have the user "return" the book.
 
 ### Command Line Interface
 
@@ -172,10 +172,4 @@ If you have time, build out a very simple CLI that does the following:
 * Check out that book for them
 * Prompt and allow the user to return the book
 
-*This functionality will require you to see you database with a few dummy categories, books and users. Put this code in your `db/seeds.rb` file and run `rake db:seed`.
-
-
-
-
-
-
+*This functionality will require you to seed your database with a few dummy categories, books and users. Put this code in your `db/seeds.rb` file and run `rake db:seed`.
